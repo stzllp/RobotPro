@@ -1,0 +1,15 @@
+.\obj\os_sem.o: ..\uCOS-III\Source\os_sem.c
+.\obj\os_sem.o: ..\uCOS-III\Source\os.h
+.\obj\os_sem.o: ..\App\os_cfg.h
+.\obj\os_sem.o: ..\uC-CPU\ARM-Cortex-M3\cpu.h
+.\obj\os_sem.o: ..\uC-CPU\cpu_def.h
+.\obj\os_sem.o: ..\App\cpu_cfg.h
+.\obj\os_sem.o: ..\uC-CPU\cpu_core.h
+.\obj\os_sem.o: ..\uC-LIB\lib_def.h
+.\obj\os_sem.o: ..\uC-LIB\lib_mem.h
+.\obj\os_sem.o: ..\uC-CPU\cpu_core.h
+.\obj\os_sem.o: ..\App\lib_cfg.h
+.\obj\os_sem.o: ..\uC-LIB\lib_str.h
+.\obj\os_sem.o: ..\uC-LIB\lib_ascii.h
+.\obj\os_sem.o: ..\uCOS-III\Source\os_type.h
+.\obj\os_sem.o: ..\uCOS-III\Ports\ARM-Cortex-M3\os_cpu.h
