@@ -235,6 +235,7 @@ void Systime(void)
 				char completename[30];
 				strcpy(completename, "0:");
 				strcat(completename, filename);
+				PlayMP3(completename);
 			}
 		}
 	}
