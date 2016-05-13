@@ -82,6 +82,7 @@
 
 #include  <bsp_ser.h>
 #include  <bsp_os.h>
+#include  <bsp_sdio.h>
 
 
 /*
@@ -240,17 +241,14 @@ void        BSP_IntClr     (CPU_DATA       int_id);
 void        BSP_IntVectSet (CPU_DATA       int_id,
                             CPU_FNCT_VOID  isr);
 
-void        BSP_LED_On     (CPU_INT08U     led);
-void        BSP_LED_Off    (CPU_INT08U     led);
-void        BSP_LED_Toggle (CPU_INT08U     led);
+void        BSP_LED_On     (void);
+void        BSP_LED_Off    (void);
+void        BSP_LED_Toggle (void);
 
 CPU_INT32U  BSP_RNG_Read   (void);
 
 void        BSP_IntPrioSet (CPU_DATA       int_id,
                             CPU_INT08U     prio);
-
-void        BSP_PSRAM_Init (void);
-void        BSP_SRAM_Init  (void);
 
 
 

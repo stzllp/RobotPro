@@ -316,11 +316,11 @@ ARM Macro Assembler    Page 5
               00000000 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=.\obj\os_cpu_a.d -o.\obj\os_cpu_a.o -IC:\Users\ASUS\Desktop\RobotP
-ro\Micrium_STM3220G-Eval_uCOS-III\Micrium\Software\KeilMDK\RTE -I"C:\Program Fi
-les\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.6.0" -I"C:\Program Files\Keil_v5\ARM\
-CMSIS\Include" --predefine="__UVISION_VERSION SETA 514" --predefine="STM32F207x
-x SETA 1" --list=.\lst\os_cpu_a.lst ..\uCOS-III\Ports\ARM-Cortex-M3\os_cpu_a.s
+ork --depend=.\obj\os_cpu_a.d -o.\obj\os_cpu_a.o -IF:\GitHub\RobotPro\RobotPro\
+KeilMDK\RTE -I"C:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.6.0" -I"C
+:\Program Files\Keil_v5\ARM\CMSIS\Include" --predefine="__UVISION_VERSION SETA 
+514" --predefine="STM32F205xx SETA 1" --list=.\lst\os_cpu_a.lst ..\uCOS-III\Por
+ts\ARM-Cortex-M3\os_cpu_a.s
 
 
 

@@ -1,1 +1,1 @@
-.\obj\cstartup.o: ..\BSP\KeilMDK\cstartup.s
+.\obj\cstartup.o: ..\BSP\cstartup.s

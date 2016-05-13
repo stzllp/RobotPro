@@ -54,8 +54,6 @@
 *********************************************************************************************************
 */
 
-#define LEDn                        4
-
 
 /*
 *********************************************************************************************************
@@ -77,20 +75,9 @@
 *********************************************************************************************************
 */
 
-GPIO_TypeDef*     GPIO_PORT[LEDn] = {GPIOC,
-                                     GPIOG,
-                                     GPIOI,
-                                     GPIOC};
-
-const CPU_INT16U  GPIO_PIN[LEDn]  = {GPIO_Pin_15,
-                                     GPIO_Pin_8,
-                                     GPIO_Pin_9,
-                                     GPIO_Pin_7};
-
-const CPU_INT32U  GPIO_CLK[LEDn]  = {RCC_AHB1Periph_GPIOC,
-                                     RCC_AHB1Periph_GPIOG,
-                                     RCC_AHB1Periph_GPIOI,
-                                     RCC_AHB1Periph_GPIOC};
+#define  LED_GPIO_PORT  GPIOC
+#define  LED_GPIO_PIN   GPIO_Pin_15
+#define  LED_GPIO_CLK   RCC_AHB1Periph_GPIOC
 
 
 /*
@@ -157,7 +144,6 @@ void  BSP_Init (void)
        To reconfigure the default setting of SystemInit() function, refer to
        system_stm32f2xx.c file
      */
-
 
     BSP_LED_Init();                                               /* Init LEDs.                                           */
 
@@ -265,313 +251,6 @@ void  BSP_CPU_TickInit  (void)
 #endif
     OS_CPU_SysTickInit(cnts);                                   /* Initialize the SysTick.                            */
 }
-/*
-*********************************************************************************************************
-*                                          BSP_PSRAM_Init()
-*
-* Description : Initialize PSRAM.
-*
-* Argument(s) : none.
-*
-* Return(s)   : none.
-*
-* Caller(s)   : BSP_Init().
-*
-* Note(s)     : none.
-*********************************************************************************************************
-*/
-
-void  BSP_PSRAM_Init(void)
-{
-    GPIO_InitTypeDef GPIO_InitStructure;
-
-    RCC_AHB3PeriphClockCmd(RCC_AHB3Periph_FSMC, ENABLE);
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB |
-                           RCC_AHB1Periph_GPIOD |
-                           RCC_AHB1Periph_GPIOE |
-                           RCC_AHB1Periph_GPIOF |
-                           RCC_AHB1Periph_GPIOG, ENABLE);
-
-
-    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_7;
-    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
-    GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_UP;
-
-    GPIO_Init(GPIOB, &GPIO_InitStructure);
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0  | GPIO_Pin_1  |
-                                  GPIO_Pin_3  | GPIO_Pin_4  |
-                                  GPIO_Pin_5  | GPIO_Pin_6  |
-                                  GPIO_Pin_7  | GPIO_Pin_8  |
-                                  GPIO_Pin_9  | GPIO_Pin_10 |
-                                  GPIO_Pin_11 | GPIO_Pin_12 |
-                                  GPIO_Pin_13 | GPIO_Pin_14 |
-                                  GPIO_Pin_15;
-
-    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
-    GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_UP;
-
-    GPIO_Init(GPIOD, &GPIO_InitStructure);
-
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource0, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource1, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource3, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource4, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource5, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource6, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource7, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource8, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource9, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource10, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource11, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource12, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource13, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource14, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource15, GPIO_AF_FSMC);
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0  | GPIO_Pin_1  |
-                                  GPIO_Pin_3  | GPIO_Pin_4  |
-                                  GPIO_Pin_5  | GPIO_Pin_6  |
-                                  GPIO_Pin_7  | GPIO_Pin_8  |
-                                  GPIO_Pin_9  | GPIO_Pin_10 |
-                                  GPIO_Pin_11 | GPIO_Pin_12 |
-                                  GPIO_Pin_13 | GPIO_Pin_14 |
-                                  GPIO_Pin_15;
-
-    GPIO_Init(GPIOE, &GPIO_InitStructure);
-
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource0, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource1, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource3, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource4, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource5, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource6, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource7, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource8, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource9, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource10, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource11, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource12, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource13, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource14, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource15, GPIO_AF_FSMC);
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0  | GPIO_Pin_1  |
-                                  GPIO_Pin_2  | GPIO_Pin_3  |
-                                  GPIO_Pin_4  | GPIO_Pin_5  |
-                                  GPIO_Pin_12 | GPIO_Pin_13 |
-                                  GPIO_Pin_14 | GPIO_Pin_15;
-
-    GPIO_Init(GPIOF, &GPIO_InitStructure);
-
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource0, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource1, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource2, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource3, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource4, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource5, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource12, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource13, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource14, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource15, GPIO_AF_FSMC);
-
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 |
-                                  GPIO_Pin_2 | GPIO_Pin_3 |
-                                  GPIO_Pin_4 | GPIO_Pin_5;
-
-    GPIO_Init(GPIOG, &GPIO_InitStructure);
-
-    GPIO_PinAFConfig(GPIOG, GPIO_PinSource0, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOG, GPIO_PinSource1, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOG, GPIO_PinSource2, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOG, GPIO_PinSource3, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOG, GPIO_PinSource4, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOG, GPIO_PinSource5, GPIO_AF_FSMC);
-
-
-    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_6;
-    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
-    GPIO_Init(GPIOF, &GPIO_InitStructure);
-
-    GPIO_ResetBits(GPIOF, GPIO_Pin_6);
-
-    FSMC_Bank1->BTCR[0] = FSMC_DataAddressMux_Disable | FSMC_MemoryType_SRAM       |
-                          FSMC_MemoryDataWidth_16b    | FSMC_WriteOperation_Enable |
-                          FSMC_ExtendedMode_Disable   | FSMC_AsynchronousWait_Disable;
-
-    FSMC_Bank1->BTCR[0] = FSMC_DataAddressMux_Disable | FSMC_MemoryType_SRAM       |
-                          FSMC_MemoryDataWidth_16b    | FSMC_WriteOperation_Enable |
-                          FSMC_ExtendedMode_Enable    | FSMC_AsynchronousWait_Disable;
-
-    FSMC_Bank1->BTCR[1]  = 0x00000404;
-    FSMC_Bank1E->BWTR[0] = 0x00000404;
-
-    FSMC_Bank1->BTCR[0] |= 0x0001;
-}
-
-
-/*
-*********************************************************************************************************
-*                                          BSP_SRAM_Init()
-*
-* Description : Initialize SRAM.
-*
-* Argument(s) : none.
-*
-* Return(s)   : none.
-*
-* Caller(s)   : BSP_Init().
-*
-* Note(s)     : none.
-*********************************************************************************************************
-*/
-
-void  BSP_SRAM_Init(void)
-{
-    FSMC_NORSRAMInitTypeDef        FSMC_SRAM_Init;
-    FSMC_NORSRAMTimingInitTypeDef  FSMC_SRAM_TimingInit;
-    GPIO_InitTypeDef               GPIO_InitStructure;
-
-
-    RCC_AHB3PeriphClockCmd(RCC_AHB3Periph_FSMC, ENABLE);
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD |
-                           RCC_AHB1Periph_GPIOE |
-                           RCC_AHB1Periph_GPIOF |
-                           RCC_AHB1Periph_GPIOG,
-                           ENABLE);
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0  | GPIO_Pin_1  |
-                                  GPIO_Pin_4  | GPIO_Pin_5  |
-                                  GPIO_Pin_8  | GPIO_Pin_9  |
-                                  GPIO_Pin_10 | GPIO_Pin_11 |
-                                  GPIO_Pin_12 | GPIO_Pin_13 |
-                                  GPIO_Pin_14 | GPIO_Pin_15;
-
-    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
-
-    GPIO_Init(GPIOD, &GPIO_InitStructure);
-
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource0,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource1,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource4,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource5,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource8,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource9,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource10, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource11, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource12, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource13, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource14, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource15, GPIO_AF_FSMC);
-
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0  | GPIO_Pin_1   |
-                                  GPIO_Pin_3  | GPIO_Pin_4   |
-                                  GPIO_Pin_5  | GPIO_Pin_6   |
-                                  GPIO_Pin_7  | GPIO_Pin_8   |
-                                  GPIO_Pin_9  | GPIO_Pin_10  |
-                                  GPIO_Pin_11 | GPIO_Pin_12  |
-                                  GPIO_Pin_13 | GPIO_Pin_14  |
-                                  GPIO_Pin_15;
-
-    GPIO_Init(GPIOE, &GPIO_InitStructure);
-
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource0,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource1,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource3,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource4,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource5,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource6,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource7,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource8,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource9,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource10, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource11, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource12, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource13, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource14, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOE, GPIO_PinSource15, GPIO_AF_FSMC);
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0  | GPIO_Pin_1  |
-                                  GPIO_Pin_2  | GPIO_Pin_3  |
-                                  GPIO_Pin_4  | GPIO_Pin_5  |
-                                  GPIO_Pin_12 | GPIO_Pin_13 |
-                                  GPIO_Pin_14 | GPIO_Pin_15;
-
-    GPIO_Init(GPIOF, &GPIO_InitStructure);
-
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource0,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource1,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource2,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource3,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource4,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource5,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource12, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource13, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource14, GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOF, GPIO_PinSource15, GPIO_AF_FSMC);
-
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 |
-                                  GPIO_Pin_2 | GPIO_Pin_3 |
-                                  GPIO_Pin_4 | GPIO_Pin_5 |
-                                  GPIO_Pin_9;
-
-    GPIO_Init(GPIOG, &GPIO_InitStructure);
-
-    GPIO_PinAFConfig(GPIOG, GPIO_PinSource0,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOG, GPIO_PinSource1,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOG, GPIO_PinSource2,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOG, GPIO_PinSource3,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOG, GPIO_PinSource4,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOG, GPIO_PinSource5,  GPIO_AF_FSMC);
-    GPIO_PinAFConfig(GPIOG, GPIO_PinSource9,  GPIO_AF_FSMC);
-
-                                                                /*------------------- SRAM BANK 2 ----------------------*/
-    FSMC_SRAM_TimingInit.FSMC_AddressSetupTime      = 0;
-    FSMC_SRAM_TimingInit.FSMC_AddressHoldTime       = 0;
-    FSMC_SRAM_TimingInit.FSMC_DataSetupTime         = 4;
-    FSMC_SRAM_TimingInit.FSMC_BusTurnAroundDuration = 1;
-    FSMC_SRAM_TimingInit.FSMC_CLKDivision           = 0;
-    FSMC_SRAM_TimingInit.FSMC_DataLatency           = 0;
-    FSMC_SRAM_TimingInit.FSMC_AccessMode            = FSMC_AccessMode_A;
-
-    FSMC_SRAM_Init.FSMC_ReadWriteTimingStruct = &FSMC_SRAM_TimingInit;
-    FSMC_SRAM_Init.FSMC_WriteTimingStruct     = &FSMC_SRAM_TimingInit;
-
-    FSMC_SRAM_Init.FSMC_Bank                  = FSMC_Bank1_NORSRAM2;
-
-    FSMC_SRAM_Init.FSMC_DataAddressMux        = FSMC_DataAddressMux_Disable;
-    FSMC_SRAM_Init.FSMC_MemoryType            = FSMC_MemoryType_SRAM;
-    FSMC_SRAM_Init.FSMC_MemoryDataWidth       = FSMC_MemoryDataWidth_16b;
-    FSMC_SRAM_Init.FSMC_AsynchronousWait      = FSMC_AsynchronousWait_Disable;
-    FSMC_SRAM_Init.FSMC_ExtendedMode          = FSMC_ExtendedMode_Enable;
-    FSMC_SRAM_Init.FSMC_WriteOperation        = FSMC_WriteOperation_Enable;
-
-    FSMC_SRAM_Init.FSMC_BurstAccessMode       = FSMC_BurstAccessMode_Disable;
-    FSMC_SRAM_Init.FSMC_WaitSignalPolarity    = FSMC_WaitSignalPolarity_Low;
-    FSMC_SRAM_Init.FSMC_WrapMode              = FSMC_WrapMode_Disable;
-    FSMC_SRAM_Init.FSMC_WaitSignalActive      = FSMC_WaitSignalActive_BeforeWaitState;
-    FSMC_SRAM_Init.FSMC_WaitSignal            = FSMC_WaitSignal_Disable;
-    FSMC_SRAM_Init.FSMC_WriteBurst            = FSMC_WriteBurst_Disable;
-
-    FSMC_NORSRAMInit(&FSMC_SRAM_Init);
-
-    FSMC_NORSRAMCmd(FSMC_Bank1_NORSRAM2, ENABLE);
-}
 
 
 /*
@@ -582,11 +261,6 @@ void  BSP_SRAM_Init(void)
 *
 * Argument(s) : led     The ID of the LED to control:
 *
-*                       0    inialize ALL  LEDs
-*                       1    inialize user LED1
-*                       2    inialize user LED2
-*                       3    inialize user LED3
-*                       4    inialize user LED4
 *
 * Return(s)   : none.
 *
@@ -599,38 +273,13 @@ static void  BSP_LED_Init()
 {
     GPIO_InitTypeDef  GPIO_InitStructure;
 
-
-    RCC_AHB1PeriphClockCmd(GPIO_CLK[0], ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_PIN[0];
-    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
-    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_UP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIO_PORT[0], &GPIO_InitStructure);
-
-    RCC_AHB1PeriphClockCmd(GPIO_CLK[1], ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_PIN[1];
-    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
-    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_UP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIO_PORT[1], &GPIO_InitStructure);
-
-    RCC_AHB1PeriphClockCmd(GPIO_CLK[2], ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_PIN[2];
-    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
-    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_UP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIO_PORT[2], &GPIO_InitStructure);
-
-    RCC_AHB1PeriphClockCmd(GPIO_CLK[3], ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_PIN[3];
-    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
-    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_UP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIO_PORT[3], &GPIO_InitStructure);
+		RCC_AHB1PeriphClockCmd(LED_GPIO_CLK, ENABLE);
+		GPIO_InitStructure.GPIO_Pin = LED_GPIO_PIN;
+		GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
+		GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+		GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_UP;
+		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+		GPIO_Init(LED_GPIO_PORT, &GPIO_InitStructure);
 }
 
 /*
@@ -639,13 +288,6 @@ static void  BSP_LED_Init()
 *
 * Description : Turn ON any or all the LEDs on the board.
 *
-* Argument(s) : led     The ID of the LED to control:
-*
-*                       0    turns ON ALL  LEDs
-*                       1    turns ON user LED1
-*                       2    turns ON user LED2
-*                       3    turns ON user LED3
-*                       4    turns ON user LED4
 *
 * Return(s)   : none.
 *
@@ -655,17 +297,9 @@ static void  BSP_LED_Init()
 *********************************************************************************************************
 */
 
-void  BSP_LED_On (CPU_INT08U  led)
+void  BSP_LED_On (void)
 {
-    if (led <= 0) {
-        GPIO_PORT[0]->BSRRL = GPIO_PIN[0];
-        GPIO_PORT[1]->BSRRL = GPIO_PIN[1];
-        GPIO_PORT[2]->BSRRL = GPIO_PIN[2];
-        GPIO_PORT[3]->BSRRL = GPIO_PIN[3];
-        return;
-    }
-
-    GPIO_PORT[led-1]->BSRRL = GPIO_PIN[led-1];
+    LED_GPIO_PORT->BSRRL = LED_GPIO_PIN;
 }
 
 /*
@@ -674,13 +308,6 @@ void  BSP_LED_On (CPU_INT08U  led)
 *
 * Description : Turn OFF any or all the LEDs on the board.
 *
-* Argument(s) : led     The ID of the LED to control:
-*
-*                       0    turns OFF ALL the LEDs
-*                       1    turns OFF user LED1
-*                       2    turns OFF user LED2
-*                       3    turns OFF user LED3
-*                       4    turns OFF user LED4
 *
 * Return(s)   : none.
 *
@@ -690,17 +317,9 @@ void  BSP_LED_On (CPU_INT08U  led)
 *********************************************************************************************************
 */
 
-void  BSP_LED_Off (CPU_INT08U led)
+void  BSP_LED_Off (void)
 {
-    if (led <= 0) {
-        GPIO_PORT[0]->BSRRH = GPIO_PIN[0];
-        GPIO_PORT[1]->BSRRH = GPIO_PIN[1];
-        GPIO_PORT[2]->BSRRH = GPIO_PIN[2];
-        GPIO_PORT[3]->BSRRH = GPIO_PIN[3];
-        return;
-    }
-
-    GPIO_PORT[led-1]->BSRRH = GPIO_PIN[led-1];
+    LED_GPIO_PORT->BSRRH = LED_GPIO_PIN;
 }
 
 
@@ -710,13 +329,6 @@ void  BSP_LED_Off (CPU_INT08U led)
 *
 * Description : TOGGLE any or all the LEDs on the board.
 *
-* Argument(s) : led     The ID of the LED to control:
-*
-*                       0    TOGGLE ALL the LEDs
-*                       1    TOGGLE user LED1
-*                       2    TOGGLE user LED2
-*                       3    TOGGLE user LED3
-*                       4    TOGGLE user LED4
 *
 * Return(s)   : none.
 *
@@ -726,38 +338,14 @@ void  BSP_LED_Off (CPU_INT08U led)
 *********************************************************************************************************
 */
 
-void  BSP_LED_Toggle (CPU_INT08U  led)
+void  BSP_LED_Toggle (void)
 {
     CPU_INT16U  pin_state;
 
-    if (led <= 0) {
-        pin_state  = GPIO_ReadOutputData(GPIO_PORT[0]);
-        pin_state ^= GPIO_PIN[0];
-        GPIO_SetBits(GPIO_PORT[0],     pin_state  & GPIO_PIN[0]);
-        GPIO_ResetBits(GPIO_PORT[0], (~pin_state) & GPIO_PIN[0]);
-
-        pin_state  = GPIO_ReadOutputData(GPIO_PORT[1]);
-        pin_state ^= GPIO_PIN[1];
-        GPIO_SetBits(GPIO_PORT[1], pin_state  & GPIO_PIN[1]);
-        GPIO_ResetBits(GPIO_PORT[1], (~pin_state) & GPIO_PIN[1]);
-
-        pin_state  = GPIO_ReadOutputData(GPIO_PORT[2]);
-        pin_state ^= GPIO_PIN[2];
-        GPIO_SetBits(GPIO_PORT[2], pin_state  & GPIO_PIN[2]);
-        GPIO_ResetBits(GPIO_PORT[2], (~pin_state) & GPIO_PIN[2]);
-
-        pin_state  = GPIO_ReadOutputData(GPIO_PORT[3]);
-        pin_state ^= GPIO_PIN[3];
-        GPIO_SetBits(GPIO_PORT[3], pin_state  & GPIO_PIN[3]);
-        GPIO_ResetBits(GPIO_PORT[3], (~pin_state) & GPIO_PIN[3]);
-
-        return;
-    }
-
-    pin_state  = GPIO_ReadOutputData(GPIO_PORT[led-1]);
-    pin_state ^= GPIO_PIN[led-1];
-    GPIO_SetBits(GPIO_PORT[led-1], pin_state  & GPIO_PIN[led-1]);
-    GPIO_ResetBits(GPIO_PORT[led-1], (~pin_state) & GPIO_PIN[led-1]);
+    pin_state  = GPIO_ReadOutputData(LED_GPIO_PORT);
+    pin_state ^= LED_GPIO_PIN;
+    GPIO_SetBits(LED_GPIO_PORT, pin_state  & LED_GPIO_PIN);
+    GPIO_ResetBits(LED_GPIO_PORT, (~pin_state) & LED_GPIO_PIN);
 }
 
 

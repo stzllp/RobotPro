@@ -5,6 +5,7 @@
 ".\obj\bsp_int.o"
 ".\obj\bsp_ser.o"
 ".\obj\bsp_os.o"
+".\obj\bsp_sdio.o"
 ".\obj\cstartup.o"
 ".\obj\misc.o"
 ".\obj\stm32f2xx_adc.o"
@@ -65,6 +66,10 @@
 ".\obj\os_time.o"
 ".\obj\os_tmr.o"
 ".\obj\os_var.o"
+".\obj\diskio.o"
+".\obj\ff.o"
+".\obj\ccsbcs.o"
+".\obj\system_stm32f2xx.o"
 --strict --scatter ".\Obj\uCOS-III.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

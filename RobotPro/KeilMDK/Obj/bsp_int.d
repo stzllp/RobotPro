@@ -54,3 +54,4 @@
 .\obj\bsp_int.o: ..\App\os_cfg.h
 .\obj\bsp_int.o: ..\uCOS-III\Source\os_type.h
 .\obj\bsp_int.o: ..\uCOS-III\Ports\ARM-Cortex-M3\os_cpu.h
+.\obj\bsp_int.o: ..\BSP\bsp_sdio.h

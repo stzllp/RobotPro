@@ -1,6 +1,6 @@
 #include "stm32f2xx.h"
 #include "stdio.h"
-#include "sdio_sd.h"
+#include "bsp_sdio.h"
 #include "diskio.h"	
 
 
@@ -13,7 +13,7 @@ static volatile DSTATUS Stat = STA_NOINIT;	/* Physical drive status */
 DSTATUS disk_initialize (BYTE pdrv)
 {
 	uint32_t status;
-	status = SD_Init();
+	status = BSP_SD_Init();
 	if(SD_OK != status)
 	{
 		Stat = STA_NOINIT;
@@ -58,7 +58,7 @@ DRESULT disk_read (
 	
 	while(count--)
 	{
-		SD_ReadBlock(buf_offset,sector++,512);
+		BSP_SD_ReadBlock(buf_offset,sector++,512);
 		buf_offset +=512;
 	}
 
@@ -79,8 +79,8 @@ DRESULT disk_write (
 	
 	while(count--)
 	{
-		SD_Erase(sector,sector);
-		SD_WriteBlock((uint8_t*)buff,sector,512);
+		BSP_SD_Erase(sector,sector);
+		BSP_SD_WriteBlock((uint8_t*)buff,sector,512);
 		sector++;
 	}
 	return RES_OK;

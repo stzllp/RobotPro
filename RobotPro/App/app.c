@@ -87,7 +87,7 @@ void Systime(void);
 int main(void)
 {
     OS_ERR  err;
-
+	
     BSP_IntDisAll();                                            /* Disable all interrupts.                                  */
 
     CPU_Init();                                                 /* Initialize uC/CPU services.                              */
@@ -135,7 +135,6 @@ static  void  AppTaskStart (void *p_arg)
 {
     OS_ERR      os_err;
 
-
    (void)p_arg;
 
     BSP_Init();                                                 /* Init BSP fncts.                                          */
@@ -160,8 +159,10 @@ static  void  AppTaskStart (void *p_arg)
     APP_TRACE_INFO(("Creating Application Tasks... \n\r"));
     AppTaskCreate();                                            /* Create Application Tasks                                 */
 
+
+
     while (DEF_TRUE) {                                          /* Task body, always written as an infinite loop.           */
-        BSP_LED_Toggle(0);
+        BSP_LED_Toggle();
         OSTimeDlyHMSM(0, 0, 0, 500,
                       OS_OPT_TIME_HMSM_STRICT, &os_err);
     }
@@ -202,14 +203,47 @@ static  void  AppTaskCreate (void)
 		(OS_ERR     *)&err);
 }
 
-
+#include "ff.h"
+#include <string.h>
 void Systime(void)
 {
 	OS_ERR      err;
 	uint32_t time = 0;
+	
+	FATFS fs;
+	DIR dir;
+	FRESULT result;
+	
+	// 循环播放根目录下的歌曲
+	f_mount(0, &fs);
+	result = f_opendir(&dir, (const TCHAR*)"0:");
+	while(result == FR_OK)
+	{
+		char lfn[_MAX_LFN*2 + 1];
+		FILINFO fileinfo;
+		
+		fileinfo.lfname = lfn;
+		fileinfo.lfsize = sizeof(lfn);
+		
+		// 读取文件
+		result = f_readdir(&dir, &fileinfo);
+		if(result == FR_OK)
+		{
+			char *filename = *fileinfo.lfname ? fileinfo.lfname : fileinfo.fname;
+			if(*filename)
+			{
+				char completename[30];
+				strcpy(completename, "0:");
+				strcat(completename, filename);
+			}
+		}
+	}
+	
+	f_mount(0, NULL);
+	
 	while(1)
 	{
-		BSP_Ser_Printf("abafadfadsf = %d",time);
+		BSP_Ser_Printf("test = %d",time++);
 		OSTimeDlyHMSM(0, 0, 0, 500,OS_OPT_TIME_HMSM_STRICT, &err);
 	}
 }

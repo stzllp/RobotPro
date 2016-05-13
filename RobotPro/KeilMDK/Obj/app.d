@@ -58,3 +58,8 @@
 .\obj\app.o: ..\BSP\STM32F2xx\inc\misc.h
 .\obj\app.o: ..\BSP\bsp_ser.h
 .\obj\app.o: ..\BSP\OS\uCOS-III\bsp_os.h
+.\obj\app.o: ..\BSP\bsp_sdio.h
+.\obj\app.o: ..\Fatfs\ff.h
+.\obj\app.o: ..\Fatfs\integer.h
+.\obj\app.o: ..\Fatfs\ffconf.h
+.\obj\app.o: C:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
